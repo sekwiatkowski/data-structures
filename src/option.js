@@ -59,7 +59,7 @@ export function invertOptions(options) {
  */
 export function concatOptions(options) {
     return options.reduce(
-        (arr, opt) => foldOption (value => arr.concat(value)) (arr) (opt),
+        (arr, opt) => foldOption (value => arr.concat([value])) (arr) (opt),
         []
     )
 }
