@@ -1,5 +1,4 @@
 import {isFunction} from './is_function'
-import {foldOption} from './option'
 
 export function success(value) {
     return {
@@ -55,14 +54,3 @@ export function invertResults(results) {
     )
 }
 
-export function transformOptionToResult(mapOrErrorMessage) {
-    return isFunction(mapOrErrorMessage)
-        ? errorMessage => foldOption(mapOrErrorMessage) (() => failure(errorMessage))
-        : foldOption(success) (() => failure(mapOrErrorMessage))
-}
-
-export function transformResultToPromise(mapOrResult) {
-    return isFunction(mapOrResult)
-        ? result => foldResult(mapOrResult) (reject) (result)
-        : foldResult(resolve) (reject) (mapOrResult)
-}

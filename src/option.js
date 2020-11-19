@@ -51,16 +51,6 @@ export function invertOptions(options) {
     )
 }
 
-export function alternativeOption(functionOrOption) {
-    return opt => isSome(opt)
-        ? opt
-        : (isFunction(functionOrOption) ? functionOrOption() : functionOrOption)
-}
-
-export function alternativeValue(functionOrValue) {
-    return opt => foldOption(x => x) (functionOrValue) (opt)
-}
-
 /*
     [ some(x), some(y) ] = [x, y]
     [ None, None ] = []
@@ -72,6 +62,16 @@ export function concatOptions(options) {
         (arr, opt) => foldOption (value => arr.concat(value)) (arr) (opt),
         []
     )
+}
+
+export function alternativeOption(functionOrOption) {
+    return opt => isSome(opt)
+        ? opt
+        : (isFunction(functionOrOption) ? functionOrOption() : functionOrOption)
+}
+
+export function alternativeValue(functionOrValue) {
+    return opt => foldOption(x => x) (functionOrValue) (opt)
 }
 
 export function maybeNull(nullable) {
