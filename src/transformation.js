@@ -10,6 +10,6 @@ export function transformOptionToResult(mapOrErrorMessage) {
 
 export function transformResultToPromise(mapOrResult) {
     return isFunction(mapOrResult)
-        ? result => foldResult(mapOrResult)(reject)(result)
-        : foldResult(Promise.resolve)(Promise.reject)(mapOrResult)
+        ? result => foldResult(mapOrResult)(error => Promise.reject(error))(result)
+        : foldResult(value => Promise.resolve(value))(error => Promise.reject(error))(mapOrResult)
 }
