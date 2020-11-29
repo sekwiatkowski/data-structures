@@ -71,7 +71,7 @@ export function alternativeOption(functionOrOption) {
 }
 
 export function alternativeValue(functionOrValue) {
-    return opt => foldOption(x => x) (functionOrValue) (opt)
+    return opt => foldOption(x => x) (isFunction(functionOrValue) ? functionOrValue() : functionOrValue) (opt)
 }
 
 export function maybeNull(nullable) {
@@ -80,4 +80,20 @@ export function maybeNull(nullable) {
 
 export function maybeUndefined(undefinable) {
     return undefinable === undefined ? None : some(undefinable)
+}
+
+export function ifPresent(sideEffect) {
+    return opt => {
+        if (isSome(opt)) {
+            sideEffect(opt.value)
+        }
+    }
+}
+
+export function ifAbsent(sideEffect) {
+    return opt => {
+        if (isNone(opt)) {
+            sideEffect()
+        }
+    }
 }

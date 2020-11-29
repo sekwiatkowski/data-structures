@@ -54,3 +54,18 @@ export function invertResults(results) {
     )
 }
 
+export function ifSucceeded(sideEffect) {
+    return result => {
+        if (isSuccess(result)) {
+            sideEffect(result.value)
+        }
+    }
+}
+
+export function ifFailed(sideEffect) {
+    return result => {
+        if (isFailure(result)) {
+            sideEffect(result.error)
+        }
+    }
+}
