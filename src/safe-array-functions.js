@@ -1,4 +1,4 @@
-import {None, some} from './option'
+import {maybeUndefined, None, some} from './option'
 
 export function safeFirst(arr) {
     return arr.length >= 1
@@ -31,18 +31,13 @@ export function safeDrop(n) {
 }
 
 export function safeFind(predicate) {
-    return arr => {
-        const result = arr.find(predicate)
-        return result !== null
-            ? some(result)
-            : None
-    }
+    return arr => maybeUndefined(arr.find(predicate))
 }
 
 export function safeFindIndex(predicate) {
     return arr =>  {
         const result = arr.findIndex(predicate)
-        return result !== null
+        return result !== -1
             ? some(result)
             : None
     }
